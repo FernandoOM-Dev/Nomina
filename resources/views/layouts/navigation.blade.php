@@ -22,6 +22,11 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('empleados.index.disable')" :active="request()->routeIs('empleados.index.disable')">
+                        Empleados desactivados
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('empleados.create')" :active="request()->routeIs('empleados.create')">
                         Crear empleado
                     </x-nav-link>

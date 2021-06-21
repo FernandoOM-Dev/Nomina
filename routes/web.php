@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::resource('empleados', EmpleadoController::class)->except('show','edit')->middleware('auth');
 
+Route::post('empleados/{empleado}/activar', [EmpleadoController::class, 'activate'])->name('empleados.activate')->middleware('auth');
+Route::get('empleados/desactivados', [EmpleadoController::class, 'index_disable'])->name('empleados.index.disable')->middleware('auth');
 Route::get('empleados/{codigo}', [EmpleadoController::class, 'show'])->name('empleados.show')->middleware('auth');
 Route::get('empleados/{codigo}/edit', [EmpleadoController::class, 'edit'])->name('empleados.edit')->middleware('auth');
 
