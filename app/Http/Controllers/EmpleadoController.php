@@ -40,12 +40,11 @@ class EmpleadoController extends Controller
         $empleado->nombre = $request->nombre;
         $empleado->apellido_paterno = $request->apellido_paterno;
         $empleado->apellido_materno = $request->apellido_materno;
-        $empleado->email = $request->email;
+        $empleado->correo = $request->correo;
         $empleado->contrato = $request->contrato;
-        $empleado->estado = true;
         $empleado->save();
 
-        return view(route('empleados.index'));
+        return redirect(route('empleados.index'));
     }
 
     /**

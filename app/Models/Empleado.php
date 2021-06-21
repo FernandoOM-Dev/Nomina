@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Empleado extends Model
 {
     use HasFactory;
+
+    protected $attributes = [
+        'estado' => true,
+    ];
+
+    protected $casts = [
+        'estado' => 'boolean',
+    ];
 }

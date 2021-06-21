@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Empleados;
 
-use App\Models\Empleado;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Empleado;
 
-class CRUDEmpleadosTest extends TestCase
+class GenerarCodigoTest extends TestCase
 {
     use RefreshDatabase;
     /**
@@ -16,7 +16,7 @@ class CRUDEmpleadosTest extends TestCase
      * @test
      * @return void
      */
-    public function an_authenticated_user_can_create_an_empleado()
+    public function an_code_is_generated_for_each_empleado()
     {
         $this->withoutExceptionHandling();
         $user = User::factory()->create();
@@ -31,10 +31,7 @@ class CRUDEmpleadosTest extends TestCase
         $this->post(route('empleados.store',$empleado));
 
         $this->assertDatabaseHas('empleados', [
-            'nombre' => 'Fernando',
-            'apellido_paterno' => 'Ordaz',
-            'apellido_materno' => 'Monreal',
-            'estado' => true
+            'codigo' => 'ord-fer-1',
         ]);
     }
 }

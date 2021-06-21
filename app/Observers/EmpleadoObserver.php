@@ -10,7 +10,7 @@ class EmpleadoObserver
     public function creating(Empleado $empleado)
     {
         $count = Empleado::count();
-        $slugable = $empleado->nombre.' '.$empleado->apellido_paterno;
+        $slugable = substr($empleado->apellido_paterno, 0, 3).' '.substr($empleado->nombre, 0, 3);
 
         $codigo = Str::slug($slugable);
 

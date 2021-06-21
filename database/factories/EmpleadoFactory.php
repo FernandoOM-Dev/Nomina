@@ -23,13 +23,11 @@ class EmpleadoFactory extends Factory
     public function definition()
     {
         return [
-            // 'codigo' => $this->faker->uuid(),
             'nombre' => $this->faker->firstName($gender = null),
             'apellido_paterno' => $this->faker->lastName(),
             'apellido_materno' => $this->faker->lastName(),
             'correo' => $this->faker->safeEmail(),
             'contrato' => 'indefinido',
-            'estado' => true,
         ];
     }
 }
