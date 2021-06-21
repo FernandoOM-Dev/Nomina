@@ -25,7 +25,7 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('empleados.create');
     }
 
     /**
@@ -53,9 +53,10 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function show(Empleado $empleado)
+    public function show(String $codigo)
     {
-        //
+        $empleado = Empleado::where('codigo', '=', $codigo)->first();
+        return view('empleados.show', compact('empleado'));
     }
 
     /**
@@ -64,9 +65,10 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleado $empleado)
+    public function edit(String $codigo)
     {
-        //
+        $empleado = Empleado::where('codigo', '=', $codigo)->first();
+        return view('empleados.edit', compact('empleado'));
     }
 
     /**

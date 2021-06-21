@@ -16,6 +16,16 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('empleados.index')" :active="request()->routeIs('empleados.index')">
+                        Empleados
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('empleados.create')" :active="request()->routeIs('empleados.create')">
+                        Crear empleado
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

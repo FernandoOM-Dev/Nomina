@@ -18,7 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('empleados', EmpleadoController::class)->middleware('auth');
+Route::resource('empleados', EmpleadoController::class)->except('show','edit')->middleware('auth');
+
+Route::get('empleados/{codigo}', [EmpleadoController::class, 'show'])->name('empleados.show')->middleware('auth');
+Route::get('empleados/{codigo}/edit', [EmpleadoController::class, 'edit'])->name('empleados.edit')->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

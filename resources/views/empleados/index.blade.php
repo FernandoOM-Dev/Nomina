@@ -4,7 +4,7 @@
             Empleados
         </h2>
     </x-slot>
-    <div class="container">
+    <div class="container mt-5 bg-white rounded shadow">
         <table class="table">
             <thead>
                 <tr>
@@ -18,11 +18,15 @@
                 @foreach ($empleados as $empleado)
                     <tr>
                         <td>{{ $empleado->codigo }}</td>
-                        <td>{{ $empleado->nombre }}</td>
+                        <td>{{ $empleado->nombre.' '.$empleado->apellido_paterno.' '.$empleado->apellido_materno }}</td>
                         <td>{{ $empleado->correo }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary">Ver más</button>
-                            <button type="button" class="btn btn-warning">Editar</button>
+                            <a href="{{ route('empleados.show', $empleado->codigo) }}">
+                                <button type="button" class="btn btn-primary">Ver más</button>
+                            </a>
+                            <a href="{{ route('empleados.edit', $empleado->codigo) }}">
+                                <button type="button" class="btn btn-warning">Editar</button>
+                            </a>
                             <button type="button" class="btn btn-danger">Eliminar</button>
                         </td>
                     </tr>
