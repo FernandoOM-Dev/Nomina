@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EmpleadoRequest;
 use App\Models\Empleado;
+use App\Repositories\EmpleadoRepository;
 use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
 {
+    private $empleadoRepository;
+
+    public function __construct(EmpleadoRepository $empleadoRepository)
+    {
+        $this->empleadoRepository = $empleadoRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::where('estado', '=', true)->get();
+        $empleados = $this->empleadoRepository->getActivateEmployees();
         return view('empleados.index', compact('empleados'));
     }
 
@@ -26,7 +34,7 @@ class EmpleadoController extends Controller
      */
     public function index_disable()
     {
-        $empleados = Empleado::where('estado', '=', false)->get();
+        $empleados = $this->empleadoRepository->getDisableEmployees();
         return view('empleados.index_disable', compact('empleados'));
     }
 
@@ -49,12 +57,7 @@ class EmpleadoController extends Controller
     public function store(EmpleadoRequest $request)
     {
         $empleado = new Empleado();
-        $empleado->nombre = $request->nombre;
-        $empleado->apellido_paterno = $request->apellido_paterno;
-        $empleado->apellido_materno = $request->apellido_materno;
-        $empleado->correo = $request->correo;
-        $empleado->contrato = $request->contrato;
-        $empleado->save();
+        $this->empleadoRepository->save($empleado, $request);
 
         return redirect(route('empleados.index'));
     }
@@ -67,7 +70,7 @@ class EmpleadoController extends Controller
      */
     public function show(String $codigo)
     {
-        $empleado = Empleado::where('codigo', '=', $codigo)->first();
+        $empleado = $this->empleadoRepository->getEmployeeByCode($codigo);
         return view('empleados.show', compact('empleado'));
     }
 
@@ -79,7 +82,7 @@ class EmpleadoController extends Controller
      */
     public function edit(String $codigo)
     {
-        $empleado = Empleado::where('codigo', '=', $codigo)->first();
+        $empleado = $this->empleadoRepository->getEmployeeByCode($codigo);
         return view('empleados.edit', compact('empleado'));
     }
 
@@ -92,12 +95,7 @@ class EmpleadoController extends Controller
      */
     public function update(EmpleadoRequest $request, Empleado $empleado)
     {
-        $empleado->nombre = $request->nombre;
-        $empleado->apellido_paterno = $request->apellido_paterno;
-        $empleado->apellido_materno = $request->apellido_materno;
-        $empleado->correo = $request->correo;
-        $empleado->contrato = $request->contrato;
-        $empleado->update();
+        $this->empleadoRepository->update($empleado, $request);
 
         return redirect(route('empleados.index'));
     }
@@ -110,15 +108,13 @@ class EmpleadoController extends Controller
      */
     public function destroy(Empleado $empleado)
     {
-        $empleado->estado = false;
-        $empleado->update();
+        $this->empleadoRepository->desactivate($empleado);
         return redirect(route('empleados.index'));
     }
 
     public function activate(Empleado $empleado)
     {
-        $empleado->estado = true;
-        $empleado->update();
+        $this->empleadoRepository->activate($empleado);
         return redirect(route('empleados.index.disable'));
     }
 }

@@ -9,6 +9,14 @@ class Empleado extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nombre',
+        'apellido_paterno',
+        'apellido_materno',
+        'correo',
+        'contrato',
+    ];
+
     protected $attributes = [
         'estado' => true,
     ];
