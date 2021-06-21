@@ -18,8 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('empleados', [EmpleadoController::class, 'index'])->middleware('auth')->name('empleados.index');
-Route::post('empleados', [EmpleadoController::class, 'store'])->middleware('auth')->name('empleados.store');
+Route::resource('empleados', EmpleadoController::class)->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

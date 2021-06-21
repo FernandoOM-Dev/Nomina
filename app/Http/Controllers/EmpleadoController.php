@@ -78,7 +78,14 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, Empleado $empleado)
     {
-        //
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido_paterno = $request->apellido_paterno;
+        $empleado->apellido_materno = $request->apellido_materno;
+        $empleado->correo = $request->correo;
+        $empleado->contrato = $request->contrato;
+        $empleado->update();
+
+        return redirect(route('empleados.index'));
     }
 
     /**
@@ -89,6 +96,7 @@ class EmpleadoController extends Controller
      */
     public function destroy(Empleado $empleado)
     {
-        //
+        $empleado->estado = false;
+        $empleado->update();
     }
 }
